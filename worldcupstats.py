@@ -9,13 +9,12 @@ import requests
 from urllib import parse
 from bs4 import BeautifulSoup
 
-
 class Team():
     """Team Class stores the data related to individual Teams. 
         Stores all the basic and detailed statistics.
 
     Attributes:
-        teamName: name of the football team/country (string)
+        teamName: name of the football team/country (string).
 
     """
     def __init__(self, teamName):
@@ -42,14 +41,14 @@ class Team():
         self.passesComplete = ''
         self.saves = ''
 
-        
+
 def iofunc(csv_file_teams, csv_file_groups):
     """iofunc function - Asks users for input, checks input and calls the csv handler and web parser functions
         to retrive data. Prints our the returned data.
 
     Parameters:
-        csv_file_teams: the file path of the CSV file containg team data (string)
-        csv_file_groups: the file path of the CSV file containg group data (string)
+        csv_file_teams: the file path of the CSV file containg team data (string).
+        csv_file_groups: the file path of the CSV file containg group data (string).
 
     """
     x = True
@@ -129,17 +128,15 @@ def iofunc(csv_file_teams, csv_file_groups):
                 file_output(teamData, "Det")
             else: continue
 
-        
 def csv_handler(csv_file_teams, csv_file_groups, userInput):
     """csv_handler function - Takes in input from the iofunc and finds the data in specified CSV file.
         
-
     Parameters:
         csv_file_teams: the file path of the CSV file containg team data (string)
         csv_file_groups: the file path of the CSV file containg group data (string)
         userInput: input from users sent from iofunc (string)
     Returns:
-        A tuple with Team objects that contains data
+        A tuple with Team objects that contains data.
     
     """
     
@@ -190,7 +187,7 @@ def csv_handler(csv_file_teams, csv_file_groups, userInput):
 def web_parser(userInput):
     """web_parser function - Uses a webpage to scrape the historical wins of all teams.
 
-        Returns: The number of wins the entered Team has (string)
+        Returns: The number of wins the entered Team has (string).
     """
     url ='https://en.wikipedia.org/wiki/List_of_FIFA_World_Cup_finals'
     page = requests.get(url)
@@ -205,24 +202,29 @@ def web_parser(userInput):
             teams = table.find_all('a', title=lambda x: x and 'national football team' in x)
             trophies = table.find_all('td', attrs={'align': lambda value: value != 'left'})
             teamsList = []
+            numStatsList = []
             winsList = []
+            
             for x in teams:
                 #print(x.text)
                 teamsList.append(x.text)
             for y in trophies:
-                winsList.append(y.text) 
-    teamWinsDict= {}
-   
-    for i in range(len(teamsList)):
+                #print(y.text)
+                numStatsList.append(y.text) 
+
+    statsSliced = numStatsList[0:24]
+    winsList = statsSliced[0::3]
+    teamWinsDict = {}
+
+    for i in range(len(teamsList[0:8])):
         teamWinsDict[teamsList[i]] = winsList[i]
-  
+
     for key in teamWinsDict:
         if userInput in key:
-            #print(teamWinsDict[key])
+            #print(teamWinsDict)
             win = teamWinsDict[key]
             return win.strip()
     else: return '0'
-
 
 def file_output(teamData, dataAmount):
     """
@@ -276,7 +278,6 @@ def file_output(teamData, dataAmount):
             file.write("")
             print("File Created With Basic Info.\n")
 
-
 def main():
     """
     main function - Calls the iofunc (input/output fuction) with the CSV file names.
@@ -288,4 +289,3 @@ def main():
 
 if __name__ == "__main__":
    main()
-
