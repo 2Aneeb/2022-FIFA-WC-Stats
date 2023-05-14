@@ -1,3 +1,6 @@
+"""
+This script tests the web_parser and csv_handler functions from the worldcupstats.py script.
+"""
 from worldcupstats import Team, csv_handler, web_parser
 
 
