@@ -15,7 +15,6 @@ class Team():
 
     Attributes:
         teamName: name of the football team/country (string).
-
     """
     def __init__(self, teamName):
         #Basic Stats
@@ -49,7 +48,6 @@ def iofunc(csv_file_teams, csv_file_groups):
     Parameters:
         csv_file_teams: the file path of the CSV file containg team data (string).
         csv_file_groups: the file path of the CSV file containg group data (string).
-
     """
     x = True
     while x == True:
@@ -137,7 +135,6 @@ def csv_handler(csv_file_teams, csv_file_groups, userInput):
         userInput: input from users sent from iofunc (string)
     Returns:
         A tuple with Team objects that contains data.
-    
     """
     
     with open(csv_file_teams, 'r') as csv_file:

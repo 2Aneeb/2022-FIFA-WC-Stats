@@ -1,8 +1,9 @@
 """
 This script tests the web_parser and csv_handler functions from the worldcupstats.py script.
 """
-from worldcupstats import Team, csv_handler, web_parser
-
+from worldcupstats import Team
+from worldcupstats import csv_handler
+from worldcupstats import web_parser
 
 def test_web_parser():
     """ This is a unit test to ensure the web_parser function will show the correct corresponding info for any team entered.
